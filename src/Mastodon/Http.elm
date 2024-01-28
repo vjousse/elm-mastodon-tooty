@@ -1,15 +1,13 @@
-module Mastodon.Http exposing
-    ( Action(..)
-    , Links
-    , Request
-    , Response
-    , extractLinks
-    , getAuthorizationUrl
-    , send
-    , withBodyDecoder
-    , withClient
-    , withQueryParams
-    )
+module Mastodon.Http exposing (Action(..), Links, Request, Response, extractLinks, getAuthorizationUrl, send, withBodyDecoder, withClient, withQueryParams)
+
+{-| Build Mastodon http queries
+
+
+# Definition
+
+@docs Action, Links, Request, Response, extractLinks, getAuthorizationUrl, send, withBodyDecoder, withClient, withQueryParams
+
+-}
 
 import Dict
 import Dict.Extra exposing (mapKeys)
@@ -23,22 +21,30 @@ import Mastodon.Model exposing (..)
 import Url.Builder
 
 
+{-| Action
+-}
 type Action
     = GET String
     | POST String
     | DELETE String
 
 
+{-| Links
+-}
 type alias Links =
     { prev : Maybe String
     , next : Maybe String
     }
 
 
+{-| Request
+-}
 type alias Request a =
     Build.RequestBuilder (Response a)
 
 
+{-| Response
+-}
 type alias Response a =
     { decoded : a
     , links : Links
@@ -56,6 +62,8 @@ extractMastodonError statusCode statusMsg body =
                 |> ServerError statusCode statusMsg
 
 
+{-| extractLinks
+-}
 extractLinks : Dict.Dict String String -> Links
 extractLinks headers =
     -- The link header content is this form:
@@ -105,6 +113,8 @@ extractLinks headers =
             }
 
 
+{-| getAuthorizationUrl
+-}
 getAuthorizationUrl : AppRegistration -> String
 getAuthorizationUrl registration =
     Url.Builder.crossOrigin
@@ -117,6 +127,8 @@ getAuthorizationUrl registration =
         ]
 
 
+{-| send
+-}
 send : Build.RequestBuilder msg -> Cmd msg
 send request =
     Build.request request
@@ -127,6 +139,8 @@ isLinkUrl url =
     String.contains "max_id=" url || String.contains "since_id=" url
 
 
+{-| withClient
+-}
 withClient : Client -> Build.RequestBuilder a -> Build.RequestBuilder a
 withClient { server, token } builder =
     let
@@ -177,11 +191,15 @@ decodeResponse decoder response =
                         )
 
 
+{-| withBodyDecoder
+-}
 withBodyDecoder : (Result Error (Response a) -> msg) -> Decode.Decoder a -> Build.RequestBuilder b -> Build.RequestBuilder msg
 withBodyDecoder toMsg decoder builder =
     Build.withExpect (Http.expectStringResponse toMsg (decodeResponse decoder)) builder
 
 
+{-| withQueryParams
+-}
 withQueryParams : List ( String, String ) -> Build.RequestBuilder a -> Build.RequestBuilder a
 withQueryParams params builder =
     if isLinkUrl builder.url then

@@ -1,22 +1,13 @@
-module Mastodon.Decoder exposing
-    ( accessTokenDecoder
-    , accountDecoder
-    , appRegistrationDecoder
-    , attachmentDecoder
-    , contextDecoder
-    , decodeClients
-    , decodeWebSocketMessage
-    , mastodonErrorDecoder
-    , mentionDecoder
-    , notificationDecoder
-    , reblogDecoder
-    , relationshipDecoder
-    , searchResultsDecoder
-    , statusDecoder
-    , statusSourceDecoder
-    , tagDecoder
-    , webSocketEventDecoder
-    )
+module Mastodon.Decoder exposing (accessTokenDecoder, accountDecoder, appRegistrationDecoder, attachmentDecoder, contextDecoder, decodeClients, decodeWebSocketMessage, mastodonErrorDecoder, mentionDecoder, notificationDecoder, reblogDecoder, relationshipDecoder, searchResultsDecoder, statusDecoder, statusSourceDecoder, tagDecoder, webSocketEventDecoder)
+
+{-| Decode from Mastodon json into Data
+
+
+# Definition
+
+@docs accessTokenDecoder, accountDecoder, appRegistrationDecoder, attachmentDecoder, contextDecoder, decodeClients, decodeWebSocketMessage, mastodonErrorDecoder, mentionDecoder, notificationDecoder, reblogDecoder, relationshipDecoder, searchResultsDecoder, statusDecoder, statusSourceDecoder, tagDecoder, webSocketEventDecoder
+
+-}
 
 import Json.Decode as Decode
 import Json.Decode.Pipeline as Pipe
@@ -24,6 +15,8 @@ import Mastodon.Model exposing (..)
 import Mastodon.WebSocket exposing (..)
 
 
+{-| appRegistrationDecoder
+-}
 appRegistrationDecoder : String -> String -> Decode.Decoder AppRegistration
 appRegistrationDecoder server scope =
     Decode.succeed AppRegistration
@@ -35,6 +28,8 @@ appRegistrationDecoder server scope =
         |> Pipe.required "redirect_uri" Decode.string
 
 
+{-| accessTokenDecoder
+-}
 accessTokenDecoder : AppRegistration -> Decode.Decoder AccessTokenResult
 accessTokenDecoder registration =
     Decode.succeed AccessTokenResult
@@ -42,6 +37,8 @@ accessTokenDecoder registration =
         |> Pipe.required "access_token" Decode.string
 
 
+{-| accountDecoder
+-}
 accountDecoder : Decode.Decoder Account
 accountDecoder =
     Decode.succeed Account
@@ -67,6 +64,8 @@ applicationDecoder =
         |> Pipe.required "website" (Decode.nullable Decode.string)
 
 
+{-| attachmentDecoder
+-}
 attachmentDecoder : Decode.Decoder Attachment
 attachmentDecoder =
     Decode.succeed Attachment
@@ -79,6 +78,8 @@ attachmentDecoder =
         |> Pipe.required "description" (Decode.nullable Decode.string)
 
 
+{-| contextDecoder
+-}
 contextDecoder : Decode.Decoder Context
 contextDecoder =
     Decode.succeed Context
@@ -94,16 +95,22 @@ clientDecoder =
         |> Pipe.required "account" (Decode.maybe accountDecoder)
 
 
+{-| decodeClients
+-}
 decodeClients : String -> Result Decode.Error (List Client)
 decodeClients json =
     Decode.decodeString (Decode.list clientDecoder) json
 
 
+{-| mastodonErrorDecoder
+-}
 mastodonErrorDecoder : Decode.Decoder String
 mastodonErrorDecoder =
     Decode.field "error" Decode.string
 
 
+{-| mentionDecoder
+-}
 mentionDecoder : Decode.Decoder Mention
 mentionDecoder =
     Decode.succeed Mention
@@ -113,6 +120,8 @@ mentionDecoder =
         |> Pipe.required "acct" Decode.string
 
 
+{-| notificationDecoder
+-}
 notificationDecoder : Decode.Decoder Notification
 notificationDecoder =
     Decode.succeed Notification
@@ -123,6 +132,8 @@ notificationDecoder =
         |> Pipe.optional "status" (Decode.nullable statusDecoder) Nothing
 
 
+{-| relationshipDecoder
+-}
 relationshipDecoder : Decode.Decoder Relationship
 relationshipDecoder =
     Decode.succeed Relationship
@@ -134,6 +145,8 @@ relationshipDecoder =
         |> Pipe.required "requested" Decode.bool
 
 
+{-| tagDecoder
+-}
 tagDecoder : Decode.Decoder Tag
 tagDecoder =
     Decode.succeed Tag
@@ -141,11 +154,15 @@ tagDecoder =
         |> Pipe.required "url" Decode.string
 
 
+{-| reblogDecoder
+-}
 reblogDecoder : Decode.Decoder Reblog
 reblogDecoder =
     Decode.map Reblog (Decode.lazy (\_ -> statusDecoder))
 
 
+{-| searchResultsDecoder
+-}
 searchResultsDecoder : Decode.Decoder SearchResults
 searchResultsDecoder =
     Decode.succeed SearchResults
@@ -169,6 +186,8 @@ statusIdDecoder =
     idDecoder |> Decode.map StatusId
 
 
+{-| statusDecoder
+-}
 statusDecoder : Decode.Decoder Status
 statusDecoder =
     Decode.succeed Status
@@ -195,6 +214,8 @@ statusDecoder =
         |> Pipe.required "visibility" Decode.string
 
 
+{-| statusSourceDecoder
+-}
 statusSourceDecoder : Decode.Decoder StatusSource
 statusSourceDecoder =
     Decode.succeed StatusSource
@@ -219,6 +240,8 @@ hashtagDecoder =
         |> Pipe.required "history" (Decode.list hashtagHistoryDecoder)
 
 
+{-| webSocketEventDecoder
+-}
 webSocketEventDecoder : Decode.Decoder WebSocketMessage
 webSocketEventDecoder =
     Decode.succeed WebSocketMessage
@@ -234,6 +257,8 @@ webSocketEventDecoder =
             )
 
 
+{-| decodeWebSocketMessage
+-}
 decodeWebSocketMessage : String -> WebSocketEvent
 decodeWebSocketMessage message =
     case Decode.decodeString webSocketEventDecoder message of

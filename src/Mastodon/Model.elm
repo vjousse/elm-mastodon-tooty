@@ -1,31 +1,17 @@
-module Mastodon.Model exposing
-    ( AccessTokenResult
-    , Account
-    , AccountNotificationDate
-    , AppRegistration
-    , Application
-    , Attachment
-    , Client
-    , Context
-    , Error(..)
-    , Hashtag
-    , HashtagHistory
-    , Mention
-    , Notification
-    , NotificationAggregate
-    , Reblog(..)
-    , Relationship
-    , SearchResults
-    , Status
-    , StatusEdit
-    , StatusEditRequestBody
-    , StatusId(..)
-    , StatusRequestBody
-    , StatusSource
-    , Tag
-    )
+module Mastodon.Model exposing (Account, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, Error(..), Hashtag, HashtagHistory, Mention, Notification, NotificationAggregate, Reblog(..), Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId(..), StatusSource, StatusRequestBody, Tag)
+
+{-| Model the Mastodon entities
 
 
+# Definition
+
+@docs Account, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, Error, Hashtag, HashtagHistory, Mention, Notification, NotificationAggregate, Reblog, Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId, StatusSource, StatusRequestBody, Tag
+
+-}
+
+
+{-| Mastodon AccountId
+-}
 type alias AccountId =
     String
 
@@ -42,6 +28,8 @@ type alias Server =
     String
 
 
+{-| Status id
+-}
 type StatusId
     = StatusId String
 
@@ -58,6 +46,8 @@ type alias Token =
     String
 
 
+{-| Mastodon error types
+-}
 type Error
     = MastodonError StatusCode StatusMsg String
     | ServerError StatusCode StatusMsg String
@@ -65,12 +55,16 @@ type Error
     | NetworkError
 
 
+{-| Server token
+-}
 type alias AccessTokenResult =
     { server : Server
     , accessToken : Token
     }
 
 
+{-| App registration
+-}
 type alias AppRegistration =
     { server : Server
     , scope : String
@@ -81,6 +75,8 @@ type alias AppRegistration =
     }
 
 
+{-| Mastodon account
+-}
 type alias Account =
     { acct : String
     , avatar : String
@@ -98,14 +94,18 @@ type alias Account =
     }
 
 
+{-| Application
+-}
 type alias Application =
     { name : String
     , website : Maybe String
     }
 
 
+{-| Attachment can be an image, a video, an audio or a gifv
+-}
 type alias Attachment =
-    -- type_: -- "image", "video", "gifv"
+    -- type_: -- "image", "video", "gifv", "audio"
     { id : String
     , type_ : String
     , url : String
@@ -116,6 +116,8 @@ type alias Attachment =
     }
 
 
+{-| Web Client
+-}
 type alias Client =
     { server : Server
     , token : Token
@@ -123,12 +125,19 @@ type alias Client =
     }
 
 
+{-| Context of a status
+
+Contains ancestors statuses and descendants statuses
+
+-}
 type alias Context =
     { ancestors : List Status
     , descendants : List Status
     }
 
 
+{-| Mention
+-}
 type alias Mention =
     { id : AccountId
     , url : String
@@ -137,6 +146,15 @@ type alias Mention =
     }
 
 
+{-| Notification
+
+       - id: The notification ID
+       - type_: One of: "mention", "reblog", "favourite", "follow"
+       - created_at: The time the notification was created
+       - account: The Account sending the notification to the user
+       - status: The Status associated with the notification, if applicable
+
+-}
 type alias Notification =
     {-
        - id: The notification ID
@@ -153,12 +171,19 @@ type alias Notification =
     }
 
 
+{-| AccountNotificationDate
+-}
 type alias AccountNotificationDate =
     { account : Account
     , created_at : String
     }
 
 
+{-| NotificationAggregate
+
+Group multiple notification together
+
+-}
 type alias NotificationAggregate =
     { id : String
     , type_ : String
@@ -168,10 +193,14 @@ type alias NotificationAggregate =
     }
 
 
+{-| Reblog of a Status
+-}
 type Reblog
     = Reblog Status
 
 
+{-| Relationship between followers
+-}
 type alias Relationship =
     { id : String
     , blocking : Bool
@@ -182,6 +211,8 @@ type alias Relationship =
     }
 
 
+{-| SearchResults
+-}
 type alias SearchResults =
     { accounts : List Account
     , statuses : List Status
@@ -189,6 +220,8 @@ type alias SearchResults =
     }
 
 
+{-| Status
+-}
 type alias Status =
     { account : Account
     , application : Maybe Application
@@ -214,6 +247,8 @@ type alias Status =
     }
 
 
+{-| Used to get the original content of a status
+-}
 type alias StatusSource =
     { id : StatusId
     , text : String
@@ -221,6 +256,8 @@ type alias StatusSource =
     }
 
 
+{-| Used when editing a status
+-}
 type alias StatusEdit =
     { status : Status
     , text : Maybe String
@@ -228,6 +265,8 @@ type alias StatusEdit =
     }
 
 
+{-| Submit a status
+-}
 type alias StatusRequestBody =
     -- status: The text of the status
     -- in_reply_to_id: local ID of the status you want to reply to
@@ -243,6 +282,8 @@ type alias StatusRequestBody =
     }
 
 
+{-| Edit a status
+-}
 type alias StatusEditRequestBody =
     -- status: The text of the status
     -- sensitive: set this to mark the media of the status as NSFW
@@ -254,12 +295,19 @@ type alias StatusEditRequestBody =
     }
 
 
+{-| tags
+
+    #hashtag
+
+-}
 type alias Tag =
     { name : String
     , url : String
     }
 
 
+{-| HashtagHistory
+-}
 type alias HashtagHistory =
     { day : String
     , uses : String
@@ -267,6 +315,8 @@ type alias HashtagHistory =
     }
 
 
+{-| Tag with history
+-}
 type alias Hashtag =
     { name : String
     , url : String

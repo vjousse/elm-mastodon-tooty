@@ -1,18 +1,20 @@
-module Mastodon.Helper exposing
-    ( addNotificationToAggregates
-    , aggregateNotifications
-    , extractReblog
-    , extractStatusId
-    , getReplyPrefix
-    , notificationToAggregate
-    , sameAccount
-    , statusReferenced
-    )
+module Mastodon.Helper exposing (addNotificationToAggregates, aggregateNotifications, extractReblog, extractStatusId, getReplyPrefix, notificationToAggregate, sameAccount, statusReferenced)
+
+{-| Helpers to manipulate Mastodon Objects
+
+
+# Definition
+
+@docs addNotificationToAggregates, aggregateNotifications, extractReblog, extractStatusId, getReplyPrefix, notificationToAggregate, sameAccount, statusReferenced
+
+-}
 
 import List.Extra exposing (groupWhile, uniqueBy)
 import Mastodon.Model exposing (..)
 
 
+{-| extractReblog
+-}
 extractReblog : Status -> Status
 extractReblog status =
     case status.reblog of
@@ -23,6 +25,8 @@ extractReblog status =
             status
 
 
+{-| getReplyPrefix
+-}
 getReplyPrefix : Account -> Status -> String
 getReplyPrefix replier status =
     -- Note: the Mastodon API doesn't consistently return mentions in the order
@@ -50,6 +54,8 @@ toMention { id, url, username, acct } =
     Mention id url username acct
 
 
+{-| notificationToAggregate
+-}
 notificationToAggregate : Notification -> NotificationAggregate
 notificationToAggregate notification =
     NotificationAggregate
@@ -60,6 +66,8 @@ notificationToAggregate notification =
         notification.created_at
 
 
+{-| addNotificationToAggregates
+-}
 addNotificationToAggregates : Notification -> List NotificationAggregate -> List NotificationAggregate
 addNotificationToAggregates notification aggregates =
     let
@@ -137,6 +145,8 @@ addNotificationToAggregates notification aggregates =
         newAggregates
 
 
+{-| aggregateNotifications
+-}
 aggregateNotifications : List Notification -> List NotificationAggregate
 aggregateNotifications notifications =
     let
@@ -182,17 +192,23 @@ aggregateNotifications notifications =
         |> List.reverse
 
 
+{-| sameAccount
+-}
 sameAccount : Mastodon.Model.Account -> Mastodon.Model.Account -> Bool
 sameAccount { id, acct, username } account =
     -- Note: different instances can share the same id for different accounts.
     id == account.id && acct == account.acct && username == account.username
 
 
+{-| statusReferenced
+-}
 statusReferenced : StatusId -> Status -> Bool
 statusReferenced id status =
     status.id == id || (extractReblog status).id == id
 
 
+{-| extractStatusId
+-}
 extractStatusId : StatusId -> String
 extractStatusId (StatusId id) =
     id

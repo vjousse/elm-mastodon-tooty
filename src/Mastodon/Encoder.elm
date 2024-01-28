@@ -1,11 +1,13 @@
-module Mastodon.Encoder exposing
-    ( appRegistrationEncoder
-    , authorizationCodeEncoder
-    , clientEncoder
-    , registrationEncoder
-    , statusEditRequestBodyEncoder
-    , statusRequestBodyEncoder
-    )
+module Mastodon.Encoder exposing (appRegistrationEncoder, authorizationCodeEncoder, clientEncoder, registrationEncoder, statusEditRequestBodyEncoder, statusRequestBodyEncoder)
+
+{-| Encode to the Mastodon json formats
+
+
+# Definition
+
+@docs appRegistrationEncoder, authorizationCodeEncoder, clientEncoder, registrationEncoder, statusEditRequestBodyEncoder, statusRequestBodyEncoder
+
+-}
 
 import Json.Encode as Encode
 import Mastodon.Model exposing (..)
@@ -21,6 +23,8 @@ encodeMaybe encode thing =
             encode value
 
 
+{-| appRegistrationEncoder
+-}
 appRegistrationEncoder : String -> String -> String -> String -> Encode.Value
 appRegistrationEncoder client_name redirect_uris scope website =
     Encode.object
@@ -31,6 +35,8 @@ appRegistrationEncoder client_name redirect_uris scope website =
         ]
 
 
+{-| authorizationCodeEncoder
+-}
 authorizationCodeEncoder : AppRegistration -> String -> Encode.Value
 authorizationCodeEncoder registration authCode =
     Encode.object
@@ -61,6 +67,8 @@ accountEncoder account =
         ]
 
 
+{-| clientEncoder
+-}
 clientEncoder : Client -> Encode.Value
 clientEncoder client =
     Encode.object
@@ -70,6 +78,8 @@ clientEncoder client =
         ]
 
 
+{-| registrationEncoder
+-}
 registrationEncoder : AppRegistration -> Encode.Value
 registrationEncoder registration =
     Encode.object
@@ -87,6 +97,8 @@ encodeStatusId (StatusId id) =
     Encode.string id
 
 
+{-| statusRequestBodyEncoder
+-}
 statusRequestBodyEncoder : StatusRequestBody -> Encode.Value
 statusRequestBodyEncoder statusData =
     Encode.object
@@ -99,6 +111,8 @@ statusRequestBodyEncoder statusData =
         ]
 
 
+{-| statusEditRequestBodyEncoder
+-}
 statusEditRequestBodyEncoder : StatusEditRequestBody -> Encode.Value
 statusEditRequestBodyEncoder statusData =
     Encode.object
