@@ -1,11 +1,11 @@
-module Mastodon.ApiUrl exposing (account, accountTimeline, apps, block, blocks, context, favourite, favouriteTimeline, follow, followers, following, hashtag, homeTimeline, mute, mutes, notifications, oauthAuthorize, oauthToken, publicTimeline, reblog, relationships, search, searchAccount, source, status, statuses, streaming, unblock, unfavourite, unfollow, unmute, unreblog, uploadMedia, userAccount)
+module Mastodon.ApiUrl exposing (account, accountTimeline, apps, block, blocks, context, favourite, favouriteTimeline, follow, followers, following, hashtag, homeTimeline, mute, mutes, notifications, oauthAuthorize, oauthToken, publicTimeline, reblog, relationships, search, searchAccount, source, status, statuses, streaming, unblock, unfavourite, unfollow, unmute, unreblog, updateMedia, uploadMedia, userAccount)
 
 {-| Mastodon URLs
 
 
 # Definition
 
-@docs account, accountTimeline, apps, block, blocks, context, favourite, favouriteTimeline, follow, followers, following, hashtag, homeTimeline, mute, mutes, notifications, oauthAuthorize, oauthToken, publicTimeline, reblog, relationships, search, searchAccount, source, status, statuses, streaming, unblock, unfavourite, unfollow, unmute, unreblog, uploadMedia, userAccount
+@docs account, accountTimeline, apps, block, blocks, context, favourite, favouriteTimeline, follow, followers, following, hashtag, homeTimeline, mute, mutes, notifications, oauthAuthorize, oauthToken, publicTimeline, reblog, relationships, search, searchAccount, source, status, statuses, streaming, unblock, unfavourite, unfollow, unmute, unreblog, updateMedia, uploadMedia, userAccount
 
 -}
 
@@ -259,6 +259,13 @@ source (StatusId id) =
 streaming : String
 streaming =
     apiPrefix ++ "/streaming/"
+
+
+{-| updateMedia
+-}
+updateMedia : String -> String
+updateMedia id =
+    apiPrefix ++ "/media/" ++ id
 
 
 {-| uploadMedia

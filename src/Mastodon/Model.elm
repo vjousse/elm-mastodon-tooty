@@ -1,11 +1,11 @@
-module Mastodon.Model exposing (Account, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, Error(..), Hashtag, HashtagHistory, Mention, Notification, NotificationAggregate, Reblog(..), Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId(..), StatusSource, StatusRequestBody, Tag)
+module Mastodon.Model exposing (Account, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, Error(..), Hashtag, HashtagHistory, MediaRequestBody, Mention, Notification, NotificationAggregate, Reblog(..), Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId(..), StatusSource, StatusRequestBody, Tag)
 
 {-| Model the Mastodon entities
 
 
 # Definition
 
-@docs Account, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, Error, Hashtag, HashtagHistory, Mention, Notification, NotificationAggregate, Reblog, Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId, StatusSource, StatusRequestBody, Tag
+@docs Account, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, Error, Hashtag, HashtagHistory, MediaRequestBody, Mention, Notification, NotificationAggregate, Reblog, Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId, StatusSource, StatusRequestBody, Tag
 
 -}
 
@@ -133,6 +133,14 @@ Contains ancestors statuses and descendants statuses
 type alias Context =
     { ancestors : List Status
     , descendants : List Status
+    }
+
+
+{-| Update a media
+-}
+type alias MediaRequestBody =
+    -- description: A plain-text description of the media, for accessibility purposes.
+    { description : String
     }
 
 

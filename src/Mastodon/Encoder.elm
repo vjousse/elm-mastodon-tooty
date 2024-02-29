@@ -1,11 +1,11 @@
-module Mastodon.Encoder exposing (appRegistrationEncoder, authorizationCodeEncoder, clientEncoder, registrationEncoder, statusEditRequestBodyEncoder, statusRequestBodyEncoder)
+module Mastodon.Encoder exposing (appRegistrationEncoder, authorizationCodeEncoder, clientEncoder, mediaRequestBodyEncoder, registrationEncoder, statusEditRequestBodyEncoder, statusRequestBodyEncoder)
 
 {-| Encode to the Mastodon json formats
 
 
 # Definition
 
-@docs appRegistrationEncoder, authorizationCodeEncoder, clientEncoder, registrationEncoder, statusEditRequestBodyEncoder, statusRequestBodyEncoder
+@docs appRegistrationEncoder, authorizationCodeEncoder, clientEncoder, mediaRequestBodyEncoder, registrationEncoder, statusEditRequestBodyEncoder, statusRequestBodyEncoder
 
 -}
 
@@ -75,6 +75,15 @@ clientEncoder client =
         [ ( "server", Encode.string client.server )
         , ( "token", Encode.string client.token )
         , ( "account", encodeMaybe accountEncoder client.account )
+        ]
+
+
+{-| mediaequestBodyEncoder
+-}
+mediaRequestBodyEncoder : MediaRequestBody -> Encode.Value
+mediaRequestBodyEncoder mediaData =
+    Encode.object
+        [ ( "description", Encode.string mediaData.description )
         ]
 
 
