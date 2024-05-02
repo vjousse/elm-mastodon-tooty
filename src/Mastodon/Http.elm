@@ -119,7 +119,8 @@ getAuthorizationUrl : AppRegistration -> String
 getAuthorizationUrl registration =
     Url.Builder.crossOrigin
         registration.server
-        [ ApiUrl.oauthAuthorize ]
+        -- crossOrigin prepends a / before every entry so remove it from the start of the path
+        [ String.dropLeft 1 ApiUrl.oauthAuthorize ]
         [ Url.Builder.string "response_type" "code"
         , Url.Builder.string "client_id" registration.client_id
         , Url.Builder.string "scope" registration.scope
