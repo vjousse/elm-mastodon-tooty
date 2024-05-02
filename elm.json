@@ -3,7 +3,7 @@
     "name": "vjousse/elm-mastodon-tooty",
     "summary": "Elm client for Mastodon extracted from tooty.",
     "license": "BSD-3-Clause",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "exposed-modules": [
         "Mastodon.ApiUrl",
         "Mastodon.Decoder",
