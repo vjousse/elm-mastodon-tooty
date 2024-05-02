@@ -195,7 +195,7 @@ statusDecoder =
         |> Pipe.optional "application" (Decode.nullable applicationDecoder) Nothing
         |> Pipe.required "content" Decode.string
         |> Pipe.required "created_at" Decode.string
-        |> Pipe.required "edited_at" (Decode.nullable Decode.string)
+        |> Pipe.optional "edited_at" (Decode.nullable Decode.string) Nothing
         |> Pipe.optional "favourited" (Decode.nullable Decode.bool) Nothing
         |> Pipe.required "favourites_count" Decode.int
         |> Pipe.required "id" statusIdDecoder
