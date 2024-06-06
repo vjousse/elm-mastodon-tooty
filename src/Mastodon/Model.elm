@@ -1,4 +1,7 @@
-module Mastodon.Model exposing (Account, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, Error(..), Hashtag, HashtagHistory, MediaRequestBody, Mention, Notification, NotificationAggregate, Reblog(..), Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId(..), StatusSource, StatusRequestBody, Tag)
+module Mastodon.Model exposing
+    ( Account, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, Error(..), Hashtag, HashtagHistory, MediaRequestBody, Mention, Notification, NotificationAggregate, Reblog(..), Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId(..), StatusSource, StatusRequestBody, Tag
+    , CustomEmoji
+    )
 
 {-| Model the Mastodon entities
 
@@ -329,4 +332,16 @@ type alias Hashtag =
     { name : String
     , url : String
     , history : List HashtagHistory
+    }
+
+
+{-| CustomEmoji
+-}
+type alias CustomEmoji =
+    -- spoiler_text: text to be shown as a warning before the actual content
+    { shortcode : String
+    , url : String
+    , static_url : String
+    , visible_in_picker : Bool
+    , category : Maybe String
     }

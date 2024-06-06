@@ -1,4 +1,7 @@
-module Mastodon.Encoder exposing (appRegistrationEncoder, authorizationCodeEncoder, clientEncoder, mediaRequestBodyEncoder, registrationEncoder, statusEditRequestBodyEncoder, statusRequestBodyEncoder)
+module Mastodon.Encoder exposing
+    ( appRegistrationEncoder, authorizationCodeEncoder, clientEncoder, mediaRequestBodyEncoder, registrationEncoder, statusEditRequestBodyEncoder, statusRequestBodyEncoder
+    , customEmojiEncoder
+    )
 
 {-| Encode to the Mastodon json formats
 
@@ -129,4 +132,17 @@ statusEditRequestBodyEncoder statusData =
         , ( "spoiler_text", encodeMaybe Encode.string statusData.spoiler_text )
         , ( "sensitive", Encode.bool statusData.sensitive )
         , ( "media_ids", Encode.list Encode.string statusData.media_ids )
+        ]
+
+
+{-| customEmojiEncoder
+-}
+customEmojiEncoder : CustomEmoji -> Encode.Value
+customEmojiEncoder customEmoji =
+    Encode.object
+        [ ( "shortcode", Encode.string customEmoji.shortcode )
+        , ( "url", Encode.string customEmoji.url )
+        , ( "static_url", Encode.string customEmoji.static_url )
+        , ( "visible_in_picker", Encode.bool customEmoji.visible_in_picker )
+        , ( "category", encodeMaybe Encode.string customEmoji.category )
         ]

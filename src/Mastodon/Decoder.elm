@@ -1,4 +1,7 @@
-module Mastodon.Decoder exposing (accessTokenDecoder, accountDecoder, appRegistrationDecoder, attachmentDecoder, contextDecoder, decodeClients, decodeWebSocketMessage, mastodonErrorDecoder, mentionDecoder, notificationDecoder, reblogDecoder, relationshipDecoder, searchResultsDecoder, statusDecoder, statusSourceDecoder, tagDecoder, webSocketEventDecoder)
+module Mastodon.Decoder exposing
+    ( accessTokenDecoder, accountDecoder, appRegistrationDecoder, attachmentDecoder, contextDecoder, decodeClients, decodeWebSocketMessage, mastodonErrorDecoder, mentionDecoder, notificationDecoder, reblogDecoder, relationshipDecoder, searchResultsDecoder, statusDecoder, statusSourceDecoder, tagDecoder, webSocketEventDecoder
+    , customEmojiDecoder
+    )
 
 {-| Decode from Mastodon json into Data
 
@@ -290,3 +293,15 @@ decodeWebSocketMessage message =
 
         Err error ->
             ErrorEvent <| Decode.errorToString error
+
+
+{-| customEmojiDecoder
+-}
+customEmojiDecoder : Decode.Decoder CustomEmoji
+customEmojiDecoder =
+    Decode.succeed CustomEmoji
+        |> Pipe.required "shortcode" Decode.string
+        |> Pipe.required "url" Decode.string
+        |> Pipe.required "static_url" Decode.string
+        |> Pipe.required "visible_in_picker" Decode.bool
+        |> Pipe.required "category" (Decode.nullable Decode.string)

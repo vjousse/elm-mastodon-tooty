@@ -1,4 +1,7 @@
-module Mastodon.ApiUrl exposing (account, accountTimeline, apps, block, blocks, context, favourite, favouriteTimeline, follow, followers, following, hashtag, homeTimeline, mute, mutes, notifications, oauthAuthorize, oauthToken, publicTimeline, reblog, relationships, search, searchAccount, source, status, statuses, streaming, unblock, unfavourite, unfollow, unmute, unreblog, updateMedia, uploadMedia, userAccount)
+module Mastodon.ApiUrl exposing
+    ( account, accountTimeline, apps, block, blocks, context, favourite, favouriteTimeline, follow, followers, following, hashtag, homeTimeline, mute, mutes, notifications, oauthAuthorize, oauthToken, publicTimeline, reblog, relationships, search, searchAccount, source, status, statuses, streaming, unblock, unfavourite, unfollow, unmute, unreblog, updateMedia, uploadMedia, userAccount
+    , accounts, customEmojis
+    )
 
 {-| Mastodon URLs
 
@@ -12,6 +15,10 @@ module Mastodon.ApiUrl exposing (account, accountTimeline, apps, block, blocks, 
 import Mastodon.Model exposing (StatusId(..))
 
 
+
+-- Prefixes
+
+
 apiPrefix : String
 apiPrefix =
     "/api/v1"
@@ -22,27 +29,12 @@ apiV2Prefix =
     "/api/v2"
 
 
-{-| apps
+
+-- Endpoints
+
+
+{-| accounts
 -}
-apps : String
-apps =
-    apiPrefix ++ "/apps"
-
-
-{-| oauthAuthorize
--}
-oauthAuthorize : String
-oauthAuthorize =
-    "/oauth/authorize"
-
-
-{-| oauthToken
--}
-oauthToken : String
-oauthToken =
-    "/oauth/token"
-
-
 accounts : String
 accounts =
     apiPrefix ++ "/accounts/"
@@ -55,32 +47,18 @@ account id =
     accounts ++ id
 
 
-{-| follow
+{-| accountTimeline
 -}
-follow : String -> String
-follow id =
-    accounts ++ id ++ "/follow"
+accountTimeline : String -> String
+accountTimeline id =
+    account id ++ "/statuses"
 
 
-{-| unfollow
+{-| apps
 -}
-unfollow : String -> String
-unfollow id =
-    accounts ++ id ++ "/unfollow"
-
-
-{-| mute
--}
-mute : String -> String
-mute id =
-    accounts ++ id ++ "/mute"
-
-
-{-| unmute
--}
-unmute : String -> String
-unmute id =
-    accounts ++ id ++ "/unmute"
+apps : String
+apps =
+    apiPrefix ++ "/apps"
 
 
 {-| block
@@ -90,39 +68,46 @@ block id =
     accounts ++ id ++ "/block"
 
 
-{-| unblock
+{-| blocks
 -}
-unblock : String -> String
-unblock id =
-    accounts ++ id ++ "/unblock"
+blocks : String
+blocks =
+    apiPrefix ++ "/blocks"
 
 
-{-| userAccount
+{-| context
 -}
-userAccount : String
-userAccount =
-    accounts ++ "verify_credentials"
+context : StatusId -> String
+context (StatusId id) =
+    statuses ++ "/" ++ id ++ "/context"
 
 
-{-| search
+{-| customEmojis
 -}
-search : String
-search =
-    apiV2Prefix ++ "/search"
+customEmojis : String
+customEmojis =
+    apiPrefix ++ "/custom_emojis"
 
 
-{-| searchAccount
+{-| favourite
 -}
-searchAccount : String
-searchAccount =
-    accounts ++ "search"
+favourite : StatusId -> String
+favourite (StatusId id) =
+    statuses ++ "/" ++ id ++ "/favourite"
 
 
-{-| relationships
+{-| favouriteTimeline
 -}
-relationships : String
-relationships =
-    accounts ++ "relationships"
+favouriteTimeline : String
+favouriteTimeline =
+    apiPrefix ++ "/favourites"
+
+
+{-| follow
+-}
+follow : String -> String
+follow id =
+    accounts ++ id ++ "/follow"
 
 
 {-| followers
@@ -139,6 +124,13 @@ following id =
     account id ++ "/following"
 
 
+{-| hashtag
+-}
+hashtag : String -> String
+hashtag tag =
+    apiPrefix ++ "/timelines/tag/" ++ tag
+
+
 {-| homeTimeline
 -}
 homeTimeline : String
@@ -146,32 +138,11 @@ homeTimeline =
     apiPrefix ++ "/timelines/home"
 
 
-{-| publicTimeline
+{-| mute
 -}
-publicTimeline : String
-publicTimeline =
-    apiPrefix ++ "/timelines/public"
-
-
-{-| accountTimeline
--}
-accountTimeline : String -> String
-accountTimeline id =
-    account id ++ "/statuses"
-
-
-{-| favouriteTimeline
--}
-favouriteTimeline : String
-favouriteTimeline =
-    apiPrefix ++ "/favourites"
-
-
-{-| hashtag
--}
-hashtag : String -> String
-hashtag tag =
-    apiPrefix ++ "/timelines/tag/" ++ tag
+mute : String -> String
+mute id =
+    accounts ++ id ++ "/mute"
 
 
 {-| mutes
@@ -181,13 +152,6 @@ mutes =
     apiPrefix ++ "/mutes"
 
 
-{-| blocks
--}
-blocks : String
-blocks =
-    apiPrefix ++ "/blocks"
-
-
 {-| notifications
 -}
 notifications : String
@@ -195,18 +159,25 @@ notifications =
     apiPrefix ++ "/notifications"
 
 
-{-| statuses
+{-| oauthAuthorize
 -}
-statuses : String
-statuses =
-    apiPrefix ++ "/statuses"
+oauthAuthorize : String
+oauthAuthorize =
+    "/oauth/authorize"
 
 
-{-| context
+{-| oauthToken
 -}
-context : StatusId -> String
-context (StatusId id) =
-    statuses ++ "/" ++ id ++ "/context"
+oauthToken : String
+oauthToken =
+    "/oauth/token"
+
+
+{-| publicTimeline
+-}
+publicTimeline : String
+publicTimeline =
+    apiPrefix ++ "/timelines/public"
 
 
 {-| reblog
@@ -214,6 +185,27 @@ context (StatusId id) =
 reblog : StatusId -> String
 reblog (StatusId id) =
     statuses ++ "/" ++ id ++ "/reblog"
+
+
+{-| relationships
+-}
+relationships : String
+relationships =
+    accounts ++ "relationships"
+
+
+{-| search
+-}
+search : String
+search =
+    apiV2Prefix ++ "/search"
+
+
+{-| searchAccount
+-}
+searchAccount : String
+searchAccount =
+    accounts ++ "search"
 
 
 {-| status
@@ -228,13 +220,6 @@ status (StatusId id) =
 unreblog : StatusId -> String
 unreblog (StatusId id) =
     statuses ++ "/" ++ id ++ "/unreblog"
-
-
-{-| favourite
--}
-favourite : StatusId -> String
-favourite (StatusId id) =
-    statuses ++ "/" ++ id ++ "/favourite"
 
 
 {-| unfavourite
@@ -252,6 +237,13 @@ unfavourite (StatusId id) =
 source : StatusId -> String
 source (StatusId id) =
     statuses ++ "/" ++ id ++ "/source"
+
+
+{-| statuses
+-}
+statuses : String
+statuses =
+    apiPrefix ++ "/statuses"
 
 
 {-| streaming
@@ -273,3 +265,31 @@ updateMedia id =
 uploadMedia : String
 uploadMedia =
     apiPrefix ++ "/media"
+
+
+{-| unblock
+-}
+unblock : String -> String
+unblock id =
+    accounts ++ id ++ "/unblock"
+
+
+{-| unfollow
+-}
+unfollow : String -> String
+unfollow id =
+    accounts ++ id ++ "/unfollow"
+
+
+{-| unmute
+-}
+unmute : String -> String
+unmute id =
+    accounts ++ id ++ "/unmute"
+
+
+{-| userAccount
+-}
+userAccount : String
+userAccount =
+    accounts ++ "verify_credentials"
