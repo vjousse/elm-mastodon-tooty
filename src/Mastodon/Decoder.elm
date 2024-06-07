@@ -45,6 +45,7 @@ accountDecoder =
         |> Pipe.required "acct" Decode.string
         |> Pipe.required "avatar" Decode.string
         |> Pipe.required "created_at" Decode.string
+        |> Pipe.required "emojis" (Decode.list customEmojiDecoder)
         |> Pipe.required "display_name" Decode.string
         |> Pipe.required "followers_count" Decode.int
         |> Pipe.required "following_count" Decode.int
@@ -196,6 +197,7 @@ statusDecoder =
         |> Pipe.required "content" Decode.string
         |> Pipe.required "created_at" Decode.string
         |> Pipe.optional "edited_at" (Decode.nullable Decode.string) Nothing
+        |> Pipe.required "emojis" (Decode.list customEmojiDecoder)
         |> Pipe.optional "favourited" (Decode.nullable Decode.bool) Nothing
         |> Pipe.required "favourites_count" Decode.int
         |> Pipe.required "id" statusIdDecoder
@@ -301,4 +303,4 @@ customEmojiDecoder =
         |> Pipe.required "url" Decode.string
         |> Pipe.required "static_url" Decode.string
         |> Pipe.required "visible_in_picker" Decode.bool
-        |> Pipe.required "category" (Decode.nullable Decode.string)
+        |> Pipe.optional "category" (Decode.nullable Decode.string) Nothing
