@@ -1,4 +1,4 @@
-module Encoder exposing (..)
+module EncoderTest exposing (..)
 
 import Expect exposing (..)
 import Fixtures exposing (customEmoji, customEmojiJson)
