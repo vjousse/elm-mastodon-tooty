@@ -1,11 +1,11 @@
-module Mastodon.Encoder exposing (appRegistrationEncoder, authorizationCodeEncoder, clientEncoder, customEmojiEncoder, mediaRequestBodyEncoder, registrationEncoder, statusEditRequestBodyEncoder, statusRequestBodyEncoder)
+module Mastodon.Encoder exposing (accountEncoder, appRegistrationEncoder, authorizationCodeEncoder, clientEncoder, customEmojiEncoder, mediaRequestBodyEncoder, registrationEncoder, statusEditRequestBodyEncoder, statusRequestBodyEncoder)
 
 {-| Encode to the Mastodon json formats
 
 
 # Definition
 
-@docs appRegistrationEncoder, authorizationCodeEncoder, clientEncoder, customEmojiEncoder, mediaRequestBodyEncoder, registrationEncoder, statusEditRequestBodyEncoder, statusRequestBodyEncoder
+@docs accountEncoder, appRegistrationEncoder, authorizationCodeEncoder, clientEncoder, customEmojiEncoder, mediaRequestBodyEncoder, registrationEncoder, statusEditRequestBodyEncoder, statusRequestBodyEncoder
 
 -}
 
@@ -55,6 +55,7 @@ accountEncoder account =
         , ( "avatar", Encode.string account.avatar )
         , ( "created_at", Encode.string account.created_at )
         , ( "display_name", Encode.string account.display_name )
+        , ( "emojis", Encode.list customEmojiEncoder account.emojis )
         , ( "followers_count", Encode.int account.followers_count )
         , ( "following_count", Encode.int account.following_count )
         , ( "header", Encode.string account.header )
