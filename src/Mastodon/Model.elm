@@ -1,11 +1,11 @@
-module Mastodon.Model exposing (Account, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, Error(..), Hashtag, HashtagHistory, MediaRequestBody, Mention, Notification, NotificationAggregate, Reblog(..), Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId(..), StatusSource, StatusRequestBody, Tag)
+module Mastodon.Model exposing (Account, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, CustomEmoji, Error(..), Hashtag, HashtagHistory, MediaRequestBody, Mention, Notification, NotificationAggregate, Reblog(..), Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId(..), StatusSource, StatusRequestBody, Tag)
 
 {-| Model the Mastodon entities
 
 
 # Definition
 
-@docs Account, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, Error, Hashtag, HashtagHistory, MediaRequestBody, Mention, Notification, NotificationAggregate, Reblog, Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId, StatusSource, StatusRequestBody, Tag
+@docs Account, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, CustomEmoji, Error, Hashtag, HashtagHistory, MediaRequestBody, Mention, Notification, NotificationAggregate, Reblog, Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId, StatusSource, StatusRequestBody, Tag
 
 -}
 
@@ -329,4 +329,15 @@ type alias Hashtag =
     { name : String
     , url : String
     , history : List HashtagHistory
+    }
+
+
+{-| CustomEmoji
+-}
+type alias CustomEmoji =
+    { shortcode : String
+    , url : String
+    , static_url : String
+    , visible_in_picker : Bool
+    , category : Maybe String
     }
