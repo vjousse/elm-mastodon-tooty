@@ -1,7 +1,7 @@
 on:
   pull_request:
   push:
-    branches: ["**"]
+    branches: ["main"]
 
 concurrency:
   cancel-in-progress: true
@@ -25,6 +25,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          npm install -g elm@latest-0.19.1
           npm install elm-format
           npm install elm-test-rs
 
