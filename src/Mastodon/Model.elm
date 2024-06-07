@@ -81,6 +81,7 @@ type alias Account =
     { acct : String
     , avatar : String
     , created_at : String
+    , emojis : List CustomEmoji
     , display_name : String
     , followers_count : Int
     , following_count : Int
@@ -236,6 +237,7 @@ type alias Status =
     , content : String
     , created_at : String
     , edited_at : Maybe String
+    , emojis : List CustomEmoji
     , favourited : Maybe Bool
     , favourites_count : Int
     , id : StatusId

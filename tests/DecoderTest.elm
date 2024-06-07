@@ -1,9 +1,9 @@
 module DecoderTest exposing (suite)
 
 import Expect exposing (..)
-import Fixtures exposing (customEmoji, customEmojiJson)
+import Fixtures
 import Json.Decode as Decode
-import Mastodon.Decoder exposing (customEmojiDecoder)
+import Mastodon.Decoder exposing (accountDecoder, customEmojiDecoder)
 import Test exposing (..)
 
 
@@ -15,8 +15,24 @@ suite =
                 \_ ->
                     let
                         customEmojiDecoded =
-                            Decode.decodeString customEmojiDecoder customEmojiJson
+                            Decode.decodeString customEmojiDecoder Fixtures.customEmojiJson
                     in
-                    Expect.equal customEmojiDecoded <| Ok customEmoji
+                    Expect.equal customEmojiDecoded <| Ok Fixtures.customEmoji
+            , test "decodes customEmoji JSON with missing category as expected" <|
+                \_ ->
+                    let
+                        customEmojiDecoded =
+                            Decode.decodeString customEmojiDecoder Fixtures.customEmojiJsonMissingCategory
+                    in
+                    Expect.equal customEmojiDecoded <| Ok Fixtures.customEmojiMissingCategory
+            ]
+        , describe "accountDecoder"
+            [ test "decodes full account JSON" <|
+                \_ ->
+                    let
+                        accountDecoded =
+                            Decode.decodeString accountDecoder Fixtures.fullAccountJson
+                    in
+                    Expect.equal accountDecoded <| Ok Fixtures.fullAccount
             ]
         ]
