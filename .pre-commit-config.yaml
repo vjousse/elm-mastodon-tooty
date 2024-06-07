@@ -1,0 +1,47 @@
+ci:
+  autoupdate_schedule: quarterly
+
+default_stages: [commit]
+
+default_install_hook_types: [pre-commit, commit-msg, pre-rebase]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+      - id: no-commit-to-branch
+        name: "don't commit to main"
+        args: [--branch, main]
+
+  - repo: local
+    hooks:
+      - id: elm-compile
+        name: run elm make on all Main.elm
+        language: system
+        files: ^src/.*\.elm$
+        pass_filenames: false
+        entry: |
+          ./scripts/all-elm-compiles.sh
+
+      - id: elm-format
+        name: run elm-format
+        language: system
+        files: ^.*\.elm$
+        pass_filenames: false
+        entry: |
+          bash -c 'npm run lint:elm-format' --
+
+  - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
+    rev: "v9.16.0"
+    hooks:
+      - id: commitlint
+        stages: [commit-msg]
+        additional_dependencies: ["@commitlint/config-conventional"]
