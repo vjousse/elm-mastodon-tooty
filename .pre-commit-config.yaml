@@ -37,7 +37,7 @@ repos:
         files: ^.*\.elm$
         pass_filenames: false
         entry: |
-          bash -c 'elm-format ' --
+          bash -c 'npx elm-format ' --
 
       - id: elm-test
         name: run elm-test-rs
@@ -45,7 +45,7 @@ repos:
         files: ^.*\.elm$
         pass_filenames: false
         entry: |
-          bash -c 'elm-test-rs "tests/*.elm"' --
+          bash -c 'npx elm-test-rs "tests/*.elm"' --
 
   - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
     rev: "v9.16.0"
