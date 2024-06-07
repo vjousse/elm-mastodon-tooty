@@ -17,3 +17,10 @@ Install [pre-commit](https://pre-commit.com/) and run:
 ## Run tests
 
     npm test
+
+# Publish a new version
+
+    elm bump
+    git tag <tag_number>
+    git push --tags origin main
+    elm publish
