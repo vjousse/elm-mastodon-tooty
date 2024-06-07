@@ -25,9 +25,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install -g elm@latest-0.19.1
-          npm install elm-format
-          npm install elm-test-rs
+          npm ci
 
       - name: Run pre-commit
         uses: pre-commit/action@v3.0.1

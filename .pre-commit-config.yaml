@@ -37,15 +37,7 @@ repos:
         files: ^.*\.elm$
         pass_filenames: false
         entry: |
-          bash -c 'npx elm-format ' --
-
-      - id: elm-test
-        name: run elm-test-rs
-        language: system
-        files: ^.*\.elm$
-        pass_filenames: false
-        entry: |
-          bash -c 'npx elm-test-rs "tests/*.elm"' --
+          bash -c 'npm run lint:elm-format' --
 
   - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
     rev: "v9.16.0"

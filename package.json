@@ -1,0 +1,31 @@
+{
+  "name": "elm-mastodon-tooty",
+  "version": "1.1.2",
+  "description": " Elm package for Mastodon",
+  "scripts": {
+    "compile:elm:all": "./scripts/all-elm-compiles.sh",
+    "fix:elm-format": "elm-format --yes",
+    "lint:all": "npm run lint:elm-format:all",
+    "lint:elm-format": "elm-format --validate",
+    "lint:elm-format:all": "npm run lint:elm-format -- .",
+    "fix:all": "npm run fix:elm-format:all",
+    "fix:elm-format:all": "npm run fix:elm-format -- .",
+    "test": "elm-test-rs \"tests/*Test.elm\"",
+    "test:watch": "npm test -- --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vjousse/elm-mastodon-tooty.git"
+  },
+  "author": "Vincent Jousse <vincent@jousse.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vjousse/elm-mastodon-tooty/issues"
+  },
+  "homepage": "https://github.com/vjousse/elm-mastodon-tooty#readme",
+  "devDependencies": {
+    "elm": "^0.19.1-5",
+    "elm-format": "^0.8.7",
+    "elm-test-rs": "^3.0.0-5"
+  }
+}
