@@ -3,7 +3,7 @@
     "name": "vjousse/elm-mastodon-tooty",
     "summary": "Elm client for Mastodon extracted from tooty.",
     "license": "BSD-3-Clause",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "exposed-modules": [
         "Mastodon.ApiUrl",
         "Mastodon.Decoder",
@@ -22,8 +22,9 @@
         "elm/url": "1.0.0 <= v < 2.0.0",
         "elm-community/dict-extra": "2.4.0 <= v < 2.5.0",
         "elm-community/list-extra": "8.7.0 <= v < 8.8.0",
-        "elm-explorations/test": "2.2.0 <= v < 3.0.0",
         "lukewestby/elm-http-builder": "8.0.0 <= v < 9.0.0"
     },
-    "test-dependencies": {}
+    "test-dependencies": {
+        "elm-explorations/test": "2.2.0 <= v < 3.0.0"
+    }
 }
