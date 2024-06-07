@@ -151,3 +151,45 @@ fullAccount =
     , url = "https://awoo.space/@noiob"
     , username = "noiob"
     }
+
+
+accountJson : String
+accountJson =
+    """{
+  "acct": "noiob@awoo.space",
+  "avatar": "https://files.mastodon.social/accounts/avatars/000/023/634/original/6ca8804dc46800ad.png",
+  "created_at": "2017-02-08T02:00:53.274Z",
+  "display_name": "ikea shark fan account",
+  "emojis": [
+    {
+      "shortcode": "ms_rainbow_flag",
+      "url": "https://files.mastodon.social/custom_emojis/images/000/028/691/original/6de008d6281f4f59.png",
+      "static_url": "https://files.mastodon.social/custom_emojis/images/000/028/691/static/6de008d6281f4f59.png",
+      "visible_in_picker": true,
+      "category": null
+    },
+    {
+      "shortcode": "ms_bisexual_flag",
+      "url": "https://files.mastodon.social/custom_emojis/images/000/050/744/original/02f94a5fca7eaf78.png",
+      "static_url": "https://files.mastodon.social/custom_emojis/images/000/050/744/static/02f94a5fca7eaf78.png",
+      "visible_in_picker": true,
+      "category": null
+    },
+    {
+      "shortcode": "ms_nonbinary_flag",
+      "url": "https://files.mastodon.social/custom_emojis/images/000/105/099/original/8106088bd4782072.png",
+      "static_url": "https://files.mastodon.social/custom_emojis/images/000/105/099/static/8106088bd4782072.png",
+      "visible_in_picker": true,
+      "category": null
+    }
+  ],
+  "followers_count": 547,
+  "following_count": 404,
+  "header": "https://files.mastodon.social/accounts/headers/000/023/634/original/256eb8d7ac40f49a.png",
+  "id": "23634",
+  "locked": false,
+  "note": "<p>:ms_rainbow_flag:\u{200B} :ms_bisexual_flagweb:\u{200B} :ms_nonbinary_flag:\u{200B} <a href=\\"https://awoo.space/tags/awoo\\" class=\\"mention hashtag\\" rel=\\"nofollow noopener noreferrer\\" target=\\"_blank\\">#<span>awoo</span}.space <a href=\\"https://awoo.space/tags/admin\\" class=\\"mention hashtag\\" rel=\\"nofollow noopener noreferrer\\" target=\\"_blank\\">#<span>admin</span} ~ <a href=\\"https://awoo.space/tags/bi\\" class=\\"mention hashtag\\" rel=\\"nofollow noopener noreferrer\\" target=\\"_blank\\">#<span>bi</span} ~ <a href=\\"https://awoo.space/tags/nonbinary\\" class=\\"mention hashtag\\" rel=\\"nofollow noopener noreferrer\\" target=\\"_blank\\">#<span>nonbinary</span} ~ compsci student ~ likes video <a href=\\"https://awoo.space/tags/games\\" class=\\"mention hashtag\\" rel=\\"nofollow noopener noreferrer\\" target=\\"_blank\\">#<span>games</span} and weird/ old electronics and will post obsessively about both ~ avatar by <span class=\\"h-card\\"><a href=\\"https://weirder.earth/@dzuk\\" class=\\"u-url mention\\" rel=\\"nofollow noopener noreferrer\\" target=\\"_blank\\">@<span>dzuk</span}</span></p>",
+  "statuses_count": 28468,
+  "url": "https://awoo.space/@noiob",
+  "username": "noiob"
+}"""
