@@ -48,6 +48,8 @@ authorizationCodeEncoder registration authCode =
         ]
 
 
+{-| accountEncoder
+-}
 accountEncoder : Account -> Encode.Value
 accountEncoder account =
     Encode.object
