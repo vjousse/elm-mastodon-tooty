@@ -1,14 +1,11 @@
-module Mastodon.Encoder exposing
-    ( appRegistrationEncoder, authorizationCodeEncoder, clientEncoder, mediaRequestBodyEncoder, registrationEncoder, statusEditRequestBodyEncoder, statusRequestBodyEncoder
-    , customEmojiEncoder
-    )
+module Mastodon.Encoder exposing (appRegistrationEncoder, authorizationCodeEncoder, clientEncoder, customEmojiEncoder, mediaRequestBodyEncoder, registrationEncoder, statusEditRequestBodyEncoder, statusRequestBodyEncoder)
 
 {-| Encode to the Mastodon json formats
 
 
 # Definition
 
-@docs appRegistrationEncoder, authorizationCodeEncoder, clientEncoder, mediaRequestBodyEncoder, registrationEncoder, statusEditRequestBodyEncoder, statusRequestBodyEncoder
+@docs appRegistrationEncoder, authorizationCodeEncoder, clientEncoder, customEmojiEncoder, mediaRequestBodyEncoder, registrationEncoder, statusEditRequestBodyEncoder, statusRequestBodyEncoder
 
 -}
 

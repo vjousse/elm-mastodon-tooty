@@ -1,14 +1,11 @@
-module Mastodon.ApiUrl exposing
-    ( account, accountTimeline, apps, block, blocks, context, favourite, favouriteTimeline, follow, followers, following, hashtag, homeTimeline, mute, mutes, notifications, oauthAuthorize, oauthToken, publicTimeline, reblog, relationships, search, searchAccount, source, status, statuses, streaming, unblock, unfavourite, unfollow, unmute, unreblog, updateMedia, uploadMedia, userAccount
-    , accounts, customEmojis
-    )
+module Mastodon.ApiUrl exposing (account, accounts, accountTimeline, apps, block, blocks, context, customEmojis, favourite, favouriteTimeline, follow, followers, following, hashtag, homeTimeline, mute, mutes, notifications, oauthAuthorize, oauthToken, publicTimeline, reblog, relationships, search, searchAccount, source, status, statuses, streaming, unblock, unfavourite, unfollow, unmute, unreblog, updateMedia, uploadMedia, userAccount)
 
 {-| Mastodon URLs
 
 
 # Definition
 
-@docs account, accountTimeline, apps, block, blocks, context, favourite, favouriteTimeline, follow, followers, following, hashtag, homeTimeline, mute, mutes, notifications, oauthAuthorize, oauthToken, publicTimeline, reblog, relationships, search, searchAccount, source, status, statuses, streaming, unblock, unfavourite, unfollow, unmute, unreblog, updateMedia, uploadMedia, userAccount
+@docs account, accounts, accountTimeline, apps, block, blocks, context, customEmojis, favourite, favouriteTimeline, follow, followers, following, hashtag, homeTimeline, mute, mutes, notifications, oauthAuthorize, oauthToken, publicTimeline, reblog, relationships, search, searchAccount, source, status, statuses, streaming, unblock, unfavourite, unfollow, unmute, unreblog, updateMedia, uploadMedia, userAccount
 
 -}
 

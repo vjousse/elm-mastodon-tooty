@@ -1,14 +1,11 @@
-module Mastodon.Model exposing
-    ( Account, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, Error(..), Hashtag, HashtagHistory, MediaRequestBody, Mention, Notification, NotificationAggregate, Reblog(..), Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId(..), StatusSource, StatusRequestBody, Tag
-    , CustomEmoji
-    )
+module Mastodon.Model exposing (Account, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, CustomEmoji, Error(..), Hashtag, HashtagHistory, MediaRequestBody, Mention, Notification, NotificationAggregate, Reblog(..), Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId(..), StatusSource, StatusRequestBody, Tag)
 
 {-| Model the Mastodon entities
 
 
 # Definition
 
-@docs Account, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, Error, Hashtag, HashtagHistory, MediaRequestBody, Mention, Notification, NotificationAggregate, Reblog, Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId, StatusSource, StatusRequestBody, Tag
+@docs Account, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, CustomEmoji, Error, Hashtag, HashtagHistory, MediaRequestBody, Mention, Notification, NotificationAggregate, Reblog, Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId, StatusSource, StatusRequestBody, Tag
 
 -}
 
