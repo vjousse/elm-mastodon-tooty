@@ -338,7 +338,6 @@ type alias Hashtag =
 {-| CustomEmoji
 -}
 type alias CustomEmoji =
-    -- spoiler_text: text to be shown as a warning before the actual content
     { shortcode : String
     , url : String
     , static_url : String

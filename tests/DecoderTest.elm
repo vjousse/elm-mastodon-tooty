@@ -11,7 +11,6 @@ suite : Test
 suite =
     describe "The Decoder module"
         [ describe "customEmojiDecoder"
-            -- Nest as many descriptions as you like.
             [ test "decodes customEmoji JSON as expected" <|
                 \_ ->
                     let
