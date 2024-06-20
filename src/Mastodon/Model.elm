@@ -1,4 +1,7 @@
-module Mastodon.Model exposing (Account, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, CustomEmoji, Error(..), Hashtag, HashtagHistory, MediaRequestBody, Mention, Notification, NotificationAggregate, Reblog(..), Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId(..), StatusSource, StatusRequestBody, Tag)
+module Mastodon.Model exposing
+    ( Account, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, CustomEmoji, Error(..), Hashtag, HashtagHistory, MediaRequestBody, Mention, Notification, NotificationAggregate, Reblog(..), Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId(..), StatusSource, StatusRequestBody, Tag
+    , AccountField, Filter, FilterAction(..), FilterContext(..), FilterKeyword, FilterResult, FilterStatus, MovedAccount(..), Poll, PollOption, PreviewCard, PreviewCardHistory, PreviewCardType(..)
+    )
 
 {-| Model the Mastodon entities
 
@@ -75,23 +78,66 @@ type alias AppRegistration =
     }
 
 
+type alias AccountField =
+    { name : String
+    , value : String
+    , verified_at : Maybe String
+    }
+
+
+type MovedAccount
+    = MovedAccount Account
+
+
 {-| Mastodon account
 -}
 type alias Account =
     { acct : String
     , avatar : String
+
+    -- A static version of the avatar. Equal to avatar if its value is a static image; different if avatar is an animated GIF.
+    , avatar_static : String
+    , bot : Bool
     , created_at : String
+
+    -- Whether the account has opted into discovery features such as the profile directory.
+    , discoverable : Maybe Bool
     , emojis : List CustomEmoji
     , display_name : String
+    , fields : List AccountField
     , followers_count : Int
     , following_count : Int
+
+    -- Indicates that the account represents a Group actor.
+    , group : Bool
     , header : String
+
+    -- A static version of the header. Equal to header if its value is a static image; different if header is an animated GIF.
+    , header_static : String
     , id : AccountId
+    , last_status_at : Maybe String
+
+    -- An extra attribute returned only when an account is silenced. If true, indicates that the account should be hidden behind a warning screen.
+    , limited : Maybe Bool
     , locked : Bool
+    , moved : Maybe MovedAccount
+    , mute_expires_at : Maybe String
+
+    -- Whether the local user has opted out of being indexed by search engines.
+    , noindex : Maybe Bool
     , note : String
     , statuses_count : Int
+    , suspended : Maybe Bool
     , url : String
     , username : String
+    }
+
+
+{-| AccountNotificationDate
+-}
+type alias AccountNotificationDate =
+    { account : Account
+    , created_at : String
     }
 
 
@@ -134,6 +180,58 @@ Contains ancestors statuses and descendants statuses
 type alias Context =
     { ancestors : List Status
     , descendants : List Status
+    }
+
+
+type FilterAction
+    = WarnAction
+    | HideAction
+
+
+type FilterContext
+    = HomeContext
+    | NotificationsContext
+    | PublicContext
+    | ThreadContext
+    | AccountContext
+
+
+{-| Represents a filter whose keywords matched a given status.
+-}
+type alias Filter =
+    { context : List FilterContext
+    , id : String
+    , expires_at : Maybe String
+    , keywords : List FilterKeyword
+    , filter_action : FilterAction
+    , statuses : List FilterStatus
+    , title : String
+    }
+
+
+{-| Represents a filter whose keywords matched a given status.
+-}
+type alias FilterKeyword =
+    { id : String
+    , keyword : String
+    , whole_word : Bool
+    }
+
+
+{-| Represents a status ID that, if matched, should cause the filter action to be taken.
+-}
+type alias FilterStatus =
+    { id : String
+    , status_id : StatusId
+    }
+
+
+{-| Represents a filter whose keywords matched a given status.
+-}
+type alias FilterResult =
+    { filter : Filter
+    , keyword_matches : Maybe (List String)
+    , status_matches : Maybe (List StatusId)
     }
 
 
@@ -180,14 +278,6 @@ type alias Notification =
     }
 
 
-{-| AccountNotificationDate
--}
-type alias AccountNotificationDate =
-    { account : Account
-    , created_at : String
-    }
-
-
 {-| NotificationAggregate
 
 Group multiple notification together
@@ -200,6 +290,67 @@ type alias NotificationAggregate =
     , accounts : List AccountNotificationDate
     , created_at : String
     }
+
+
+{-| Represents a poll attached to a status.
+-}
+type alias Poll =
+    { id : String
+    , emojis : List CustomEmoji
+    , expired : Bool
+    , expires_at : Maybe String
+    , multiple : Bool
+    , options : List PollOption
+    , own_votes : List Int
+    , vote_counts : Int
+    , voter_counts : Maybe Int
+    , voted : Maybe Bool
+    }
+
+
+{-| Poll::Option attributes
+-}
+type alias PollOption =
+    { title : String
+    , votes_count : Maybe Int
+    }
+
+
+{-| Represents a rich preview card that is generated using OpenGraph tags from a URL.
+-}
+type alias PreviewCard =
+    { author_name : String
+    , author_url : String
+    , blurhash : Maybe String
+    , description : String
+    , embed_url : String
+    , height : Int
+    , history : Maybe (List PreviewCardHistory)
+    , html : String
+    , image : Maybe String
+    , provider_name : String
+    , provider_url : String
+    , title : String
+    , type_ : PreviewCardType
+    , url : String
+    , width : Int
+    }
+
+
+type alias PreviewCardHistory =
+    { accounts : String
+    , day : String
+    , uses : String
+    }
+
+
+{-| Preview card type
+-}
+type PreviewCardType
+    = Link
+    | Photo
+    | Video
+    | Rich
 
 
 {-| Reblog of a Status
@@ -234,23 +385,40 @@ type alias SearchResults =
 type alias Status =
     { account : Account
     , application : Maybe Application
+
+    -- If the current token has an authorized user: Have you bookmarked this status?
+    , bookmarked : Maybe Bool
+    , card : Maybe PreviewCard
     , content : String
     , created_at : String
     , edited_at : Maybe String
     , emojis : List CustomEmoji
     , favourited : Maybe Bool
     , favourites_count : Int
+
+    -- If the current token has an authorized user: The filter and keywords that matched this status.
+    , filtered : Maybe (List FilterResult)
     , id : StatusId
     , in_reply_to_account_id : Maybe String
     , in_reply_to_id : Maybe StatusId
+    , language : Maybe String
     , media_attachments : List Attachment
     , mentions : List Mention
+
+    -- If the current token has an authorized user: Have you muted notifications for this status’s conversation?
+    , muted : Maybe Bool
+
+    -- If the current token has an authorized user: Have you pinned this status? Only appears if the status is pinnable.
+    , pinned : Maybe Bool
+    , poll : Maybe Poll
     , reblog : Maybe Reblog
     , reblogged : Maybe Bool
     , reblogs_count : Int
+    , replies_count : Int
     , sensitive : Maybe Bool
     , spoiler_text : String
     , tags : List Tag
+    , text : Maybe String
     , uri : String
     , url : Maybe String
     , visibility : String
