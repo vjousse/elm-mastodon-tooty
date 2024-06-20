@@ -1,14 +1,11 @@
-module Mastodon.Model exposing
-    ( Account, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, CustomEmoji, Error(..), Hashtag, HashtagHistory, MediaRequestBody, Mention, Notification, NotificationAggregate, Reblog(..), Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId(..), StatusSource, StatusRequestBody, Tag
-    , AccountField, Filter, FilterAction(..), FilterContext(..), FilterKeyword, FilterResult, FilterStatus, MovedAccount(..), Poll, PollOption, PreviewCard, PreviewCardHistory, PreviewCardType(..)
-    )
+module Mastodon.Model exposing (Account, AccountField, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, CustomEmoji, Error(..), Filter, FilterAction(..), FilterContext(..), FilterKeyword, FilterResult, FilterStatus, Hashtag, HashtagHistory, MediaRequestBody, Mention, MovedAccount(..), Notification, NotificationAggregate, Poll, PollOption, PreviewCard, PreviewCardHistory, PreviewCardType(..), Reblog(..), Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId(..), StatusSource, StatusRequestBody, Tag)
 
 {-| Model the Mastodon entities
 
 
 # Definition
 
-@docs Account, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, CustomEmoji, Error, Hashtag, HashtagHistory, MediaRequestBody, Mention, Notification, NotificationAggregate, Reblog, Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId, StatusSource, StatusRequestBody, Tag
+@docs Account, AccountField, AccessTokenResult, AccountNotificationDate, AppRegistration, Application, Attachment, Client, Context, CustomEmoji, Error, Filter, FilterAction, FilterContext, FilterKeyword, FilterResult, FilterStatus, Hashtag, HashtagHistory, MediaRequestBody, Mention, MovedAccount, Notification, NotificationAggregate, Poll, PollOption, PreviewCard, PreviewCardHistory, PreviewCardType, Reblog, Relationship, SearchResults, Status, StatusEdit, StatusEditRequestBody, StatusId, StatusSource, StatusRequestBody, Tag
 
 -}
 
@@ -78,6 +75,8 @@ type alias AppRegistration =
     }
 
 
+{-| Additional metadata attached to a profile as name-value pairs.
+-}
 type alias AccountField =
     { name : String
     , value : String
@@ -85,6 +84,8 @@ type alias AccountField =
     }
 
 
+{-| MovedAccount
+-}
 type MovedAccount
     = MovedAccount Account
 
@@ -183,11 +184,15 @@ type alias Context =
     }
 
 
+{-| The action to be taken when a status matches a filter.
+-}
 type FilterAction
     = WarnAction
     | HideAction
 
 
+{-| The contexts in which the filter should be applied.
+-}
 type FilterContext
     = HomeContext
     | NotificationsContext
@@ -337,6 +342,8 @@ type alias PreviewCard =
     }
 
 
+{-| Usage statistics for given days (typically the past week).
+-}
 type alias PreviewCardHistory =
     { accounts : String
     , day : String
