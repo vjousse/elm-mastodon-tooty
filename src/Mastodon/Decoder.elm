@@ -95,7 +95,7 @@ attachmentDecoder =
         |> Pipe.required "id" idDecoder
         |> Pipe.required "type" Decode.string
         |> Pipe.required "url" Decode.string
-        |> Pipe.optional "remote_url" Decode.string ""
+        |> Pipe.optional "remote_url" (Decode.nullable Decode.string) Nothing
         |> Pipe.required "preview_url" (Decode.nullable Decode.string)
         |> Pipe.required "text_url" (Decode.nullable Decode.string)
         |> Pipe.required "description" (Decode.nullable Decode.string)

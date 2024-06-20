@@ -156,7 +156,7 @@ type alias Attachment =
     { id : String
     , type_ : String
     , url : String
-    , remote_url : String
+    , remote_url : Maybe String
     , preview_url : Maybe String
     , text_url : Maybe String
     , description : Maybe String
