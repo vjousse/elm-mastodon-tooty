@@ -3,7 +3,7 @@ module DecoderTest exposing (suite)
 import Expect exposing (..)
 import Fixtures
 import Json.Decode as Decode
-import Mastodon.Decoder exposing (accountDecoder, customEmojiDecoder)
+import Mastodon.Decoder exposing (accountDecoder, customEmojiDecoder, filterDecoder, statusDecoder)
 import Test exposing (..)
 
 
@@ -34,5 +34,23 @@ suite =
                             Decode.decodeString accountDecoder Fixtures.fullAccountJson
                     in
                     Expect.equal accountDecoded <| Ok Fixtures.fullAccount
+            ]
+        , describe "statusDecoder"
+            [ test "decodes full status JSON" <|
+                \_ ->
+                    let
+                        statusDecoded =
+                            Decode.decodeString statusDecoder Fixtures.fullStatusJson
+                    in
+                    Expect.equal statusDecoded <| Ok Fixtures.fullStatus
+            ]
+        , describe "filterDecoder"
+            [ test "decodes full filter JSON" <|
+                \_ ->
+                    let
+                        filterDecoded =
+                            Decode.decodeString filterDecoder Fixtures.fullFilterJson
+                    in
+                    Expect.equal filterDecoded <| Ok Fixtures.fullFilter
             ]
         ]
