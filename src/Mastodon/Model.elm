@@ -307,8 +307,8 @@ type alias Poll =
     , multiple : Bool
     , options : List PollOption
     , own_votes : List Int
-    , vote_counts : Int
-    , voter_counts : Maybe Int
+    , voters_count : Maybe Int
+    , votes_count : Int
     , voted : Maybe Bool
     }
 

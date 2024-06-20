@@ -1,6 +1,6 @@
 module Fixtures exposing (..)
 
-import Mastodon.Model exposing (Account, CustomEmoji, Filter, FilterAction(..), FilterContext(..), MovedAccount(..), PreviewCardType(..), Status, StatusId(..))
+import Mastodon.Model exposing (Account, CustomEmoji, Filter, FilterAction(..), FilterContext(..), MovedAccount(..), Poll, PreviewCardType(..), Status, StatusId(..))
 
 
 customEmoji : CustomEmoji
@@ -577,3 +577,57 @@ fullFilter =
         ]
     , title = "Test filter"
     }
+
+
+fullPoll : Poll
+fullPoll =
+    { id = "330474"
+    , emojis = []
+    , expired = False
+    , expires_at = Just "2024-06-23T19:51:45.000Z"
+    , multiple = False
+    , options =
+        [ { title = "Yeah, it's so annoying, I notice it all the time!"
+          , votes_count = Just 0
+          }
+        , { title = "Yes, but rarely"
+          , votes_count = Just 5
+          }
+        , { title = "I don't know what you're talking about"
+          , votes_count = Just 4
+          }
+        ]
+    , own_votes = []
+    , voters_count = Just 10
+    , votes_count = 9
+    , voted = Just False
+    }
+
+
+fullPollJson : String
+fullPollJson =
+    """{
+        "id": "330474",
+        "expires_at": "2024-06-23T19:51:45.000Z",
+        "expired": false,
+        "multiple": false,
+        "votes_count": 9,
+        "voters_count": 10,
+        "voted": false,
+        "own_votes": [],
+        "options": [
+          {
+            "title": "Yeah, it's so annoying, I notice it all the time!",
+            "votes_count": 0
+          },
+          {
+            "title": "Yes, but rarely",
+            "votes_count": 5
+          },
+          {
+            "title": "I don't know what you're talking about",
+            "votes_count": 4
+          }
+        ],
+        "emojis": []
+      }"""
