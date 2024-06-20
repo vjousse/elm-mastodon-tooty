@@ -1,11 +1,11 @@
-module Mastodon.Decoder exposing (accessTokenDecoder, accountDecoder, appRegistrationDecoder, attachmentDecoder, contextDecoder, customEmojiDecoder, decodeClients, decodeWebSocketMessage, mastodonErrorDecoder, mentionDecoder, notificationDecoder, reblogDecoder, relationshipDecoder, searchResultsDecoder, statusDecoder, statusSourceDecoder, tagDecoder, webSocketEventDecoder, filterDecoder)
+module Mastodon.Decoder exposing (accessTokenDecoder, accountDecoder, appRegistrationDecoder, attachmentDecoder, contextDecoder, customEmojiDecoder, decodeClients, decodeWebSocketMessage, filterDecoder, mastodonErrorDecoder, mentionDecoder, notificationDecoder, pollDecoder, reblogDecoder, relationshipDecoder, searchResultsDecoder, statusDecoder, statusSourceDecoder, tagDecoder, webSocketEventDecoder)
 
 {-| Decode from Mastodon json into Data
 
 
 # Definition
 
-@docs accessTokenDecoder, accountDecoder, appRegistrationDecoder, attachmentDecoder, contextDecoder, customEmojiDecoder, decodeClients, decodeWebSocketMessage, mastodonErrorDecoder, mentionDecoder, notificationDecoder, reblogDecoder, relationshipDecoder, searchResultsDecoder, statusDecoder, statusSourceDecoder, tagDecoder, webSocketEventDecoder, filterDecoder
+@docs accessTokenDecoder, accountDecoder, appRegistrationDecoder, attachmentDecoder, contextDecoder, customEmojiDecoder, decodeClients, decodeWebSocketMessage, filterDecoder, mastodonErrorDecoder, mentionDecoder, notificationDecoder, pollDecoder, reblogDecoder, relationshipDecoder, searchResultsDecoder, statusDecoder, statusSourceDecoder, tagDecoder, webSocketEventDecoder
 
 -}
 
@@ -249,8 +249,8 @@ pollDecoder =
         |> Pipe.required "multiple" Decode.bool
         |> Pipe.required "options" (Decode.list pollOptionDecoder)
         |> Pipe.required "own_votes" (Decode.list Decode.int)
-        |> Pipe.required "vote_counts" Decode.int
-        |> Pipe.optional "voter_counts" (Decode.nullable Decode.int) Nothing
+        |> Pipe.optional "voters_count" (Decode.nullable Decode.int) Nothing
+        |> Pipe.required "votes_count" Decode.int
         |> Pipe.optional "voted" (Decode.nullable Decode.bool) Nothing
 
 
