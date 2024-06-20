@@ -1,11 +1,11 @@
-module Mastodon.Decoder exposing (accessTokenDecoder, accountDecoder, appRegistrationDecoder, attachmentDecoder, contextDecoder, customEmojiDecoder, decodeClients, decodeWebSocketMessage, mastodonErrorDecoder, mentionDecoder, notificationDecoder, reblogDecoder, relationshipDecoder, searchResultsDecoder, statusDecoder, statusSourceDecoder, tagDecoder, webSocketEventDecoder)
+module Mastodon.Decoder exposing (accessTokenDecoder, accountDecoder, appRegistrationDecoder, attachmentDecoder, contextDecoder, customEmojiDecoder, decodeClients, decodeWebSocketMessage, mastodonErrorDecoder, mentionDecoder, notificationDecoder, reblogDecoder, relationshipDecoder, searchResultsDecoder, statusDecoder, statusSourceDecoder, tagDecoder, webSocketEventDecoder, filterDecoder)
 
 {-| Decode from Mastodon json into Data
 
 
 # Definition
 
-@docs accessTokenDecoder, accountDecoder, appRegistrationDecoder, attachmentDecoder, contextDecoder, customEmojiDecoder, decodeClients, decodeWebSocketMessage, mastodonErrorDecoder, mentionDecoder, notificationDecoder, reblogDecoder, relationshipDecoder, searchResultsDecoder, statusDecoder, statusSourceDecoder, tagDecoder, webSocketEventDecoder
+@docs accessTokenDecoder, accountDecoder, appRegistrationDecoder, attachmentDecoder, contextDecoder, customEmojiDecoder, decodeClients, decodeWebSocketMessage, mastodonErrorDecoder, mentionDecoder, notificationDecoder, reblogDecoder, relationshipDecoder, searchResultsDecoder, statusDecoder, statusSourceDecoder, tagDecoder, webSocketEventDecoder, filterDecoder
 
 -}
 
