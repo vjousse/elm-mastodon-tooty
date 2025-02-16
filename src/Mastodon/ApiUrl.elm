@@ -247,7 +247,7 @@ statuses =
 -}
 streaming : String
 streaming =
-    apiPrefix ++ "/streaming/"
+    apiPrefix ++ "/streaming"
 
 
 {-| updateMedia
